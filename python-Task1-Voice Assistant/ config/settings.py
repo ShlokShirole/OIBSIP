@@ -1,6 +1,0 @@
-# Voice Settings
-
-VOICE_RATE = 170
-VOICE_INDEX = 0
-ASSISTANT_NAME = "Nova"
-LANGUAGE = "en"
