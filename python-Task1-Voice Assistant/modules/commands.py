@@ -20,6 +20,14 @@ from modules.applications import (
     open_chrome,
 )
 
+from modules.system import (
+    get_battery_percentage,
+    take_screenshot,
+)
+
+from modules import volume
+from modules import brightness
+
 
 def process_command(command):
 
@@ -64,6 +72,8 @@ def process_command(command):
         if query:
             speak(f"Searching YouTube for {query}")
             search_youtube(query)
+        else:
+            speak("Please tell me what to search on YouTube.")
 
     # Play Music
     elif command.startswith("play "):
@@ -72,6 +82,8 @@ def process_command(command):
         if song:
             speak(f"Playing {song}")
             play_music(song)
+        else:
+            speak("Please tell me which song to play.")
 
     # Applications
     elif "open notepad" in command:
@@ -105,6 +117,63 @@ def process_command(command):
     elif "open chrome" in command:
         speak("Opening Google Chrome")
         open_chrome()
+
+    # Battery Percentage
+    elif "battery" in command:
+        battery = get_battery_percentage()
+        speak(battery)
+
+    # Screenshot
+    elif "screenshot" in command or "capture screen" in command:
+        speak("Taking screenshot")
+        message = take_screenshot()
+        speak(message)
+
+    # ---------------- Volume ----------------
+
+    elif "increase volume" in command:
+        volume.increase()
+        speak("Volume increased")
+
+    elif "decrease volume" in command:
+        volume.decrease()
+        speak("Volume decreased")
+
+    elif "mute volume" in command or command == "mute":
+        volume.mute()
+        speak("Volume muted")
+
+    elif "unmute volume" in command:
+        volume.unmute()
+        speak("Volume unmuted")
+
+
+
+        # ---------------- Brightness ----------------
+
+    elif "increase brightness" in command:
+        brightness.increase()
+        speak("Brightness increased")
+
+    elif "decrease brightness" in command:
+        brightness.decrease()
+        speak("Brightness decreased")
+
+    elif "current brightness" in command:
+        level = brightness.get_brightness()
+        speak(f"Current brightness is {level} percent")
+
+    elif "set brightness to" in command:
+        try:
+            percent = int(
+                command.replace("set brightness to", "")
+                .replace("percent", "")
+                .strip()
+            )
+            brightness.set_brightness(percent)
+            speak(f"Brightness set to {percent} percent")
+        except:
+            speak("Invalid brightness percentage")
 
     # Exit
     elif any(word in command for word in ["exit", "bye", "stop", "end", "quit"]):
