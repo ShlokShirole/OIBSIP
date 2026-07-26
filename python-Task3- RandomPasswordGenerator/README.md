@@ -3,8 +3,8 @@
 A modern, dark-themed password generator desktop application built with **Python** and **Tkinter**.  
 It generates strong, customizable passwords and keeps a history of generated or copied passwords – all in a clean, user-friendly interface.
 
-![Password Generator UI](https://via.placeholder.com/520x700/1a1a24/4a7cf7?text=Password+Generator+UI)  
-*(Replace with actual screenshot if available)*
+![Password Generator UI](assets/screenshot.png)
+
 
 ---
 
